@@ -6,7 +6,9 @@
             <h1 class="card-title mb-0">Motor List</h1>
         </div>
         <div class="card-body">
-            <a href="{{ route('motors.create') }}" class="btn btn-success mb-3">Create Motor</a>
+            @role('admin')
+               <a href="{{ route('motors.create') }}" class="btn btn-success mb-3">Create Motor</a>
+            @endrole
 
             @if(count($motors) > 0)
                 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -23,12 +25,14 @@
                                         <strong>Power:</strong> {{ $motor->power }}
                                     </p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <a href="{{ route('motors.edit', $motor) }}" class="btn btn-outline-secondary">Edit</a>
-                                        <form method="POST" action="{{ route('motors.destroy', $motor) }}" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                        </form>
+                                        @role('admin')
+                                           <a href="{{ route('motors.edit', $motor) }}" class="btn btn-outline-secondary">Edit</a>
+                                           <form method="POST" action="{{ route('motors.destroy', $motor) }}" class="d-inline">
+                                              @csrf
+                                              @method('DELETE')
+                                              <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </form>
+                                        @endrole
                                         <div class="btn-group" role="group">
                                             <a href="{{ route('motors.purchaseForm', $motor) }}" class="btn btn-outline-success">Purchase</a>
                                         </div>
